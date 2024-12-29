@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using CUI.Common.Drawing;
 
-namespace CUI.Common.Components
+namespace CUI.Common.Components.Containers.Panels
 {
     public class Panel : Renderable
     {

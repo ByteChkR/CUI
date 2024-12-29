@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Drawing;
 
-namespace CUI.Common
+using CUI.Common.Drawing;
+
+namespace CUI.Common.Rendering.Buffer
 {
     public class RenderBufferPixel : IEquatable<RenderBufferPixel>
     {

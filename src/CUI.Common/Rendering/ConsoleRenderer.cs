@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Numerics;
 
-namespace CUI.Common.Components
+using CUI.Common.Rendering.Buffer;
+
+namespace CUI.Common.Rendering
 {
     public class ConsoleRenderer : IRenderer
     {
@@ -24,6 +26,7 @@ namespace CUI.Common.Components
                 Console.Write(command.Characters);
                 command.SetClean();
             }
+            Console.SetCursorPosition(0,0);
             
             #if DEBUG
             //Ensure that the buffer and _displayBuffer are equal in all pixels

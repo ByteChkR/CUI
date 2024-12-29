@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CUI.Common.Components
+namespace CUI.Common.Components.Containers.Panels
 {
     public struct BorderOptions : IEquatable<BorderOptions>
     {

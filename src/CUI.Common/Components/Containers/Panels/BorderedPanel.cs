@@ -1,6 +1,10 @@
 ﻿using System.Numerics;
 
-namespace CUI.Common.Components
+using CUI.Common.Drawing;
+using CUI.Common.Rendering;
+using CUI.Common.Rendering.Buffer;
+
+namespace CUI.Common.Components.Containers.Panels
 {
     public class BorderedPanel : Panel
     {

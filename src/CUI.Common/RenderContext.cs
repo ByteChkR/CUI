@@ -1,4 +1,6 @@
-﻿namespace CUI.Common
+﻿using CUI.Common.Rendering;
+
+namespace CUI.Common
 {
     public class RenderContext
     {
@@ -11,7 +13,9 @@
 
         public void Render()
         {
-            Elements.ComputeLayout();
+            Elements
+                .WithSize(Renderer.Buffer.Size)
+                .ComputeLayout();
             Renderer.Buffer.Clear();
             Elements.RenderTo(Renderer.Buffer);
             Renderer.Render();

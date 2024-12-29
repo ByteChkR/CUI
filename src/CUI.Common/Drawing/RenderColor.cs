@@ -1,4 +1,4 @@
-﻿namespace CUI.Common
+﻿namespace CUI.Common.Drawing
 {
     public enum RenderColor
     {

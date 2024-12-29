@@ -1,12 +1,7 @@
 ﻿using System;
 
-namespace CUI.Common
+namespace CUI.Common.Drawing
 {
-    public enum OverflowMode
-    {
-        Hidden,
-        Visible,
-    }
     [Flags]
     public enum LayoutMode
     {

@@ -1,7 +1,9 @@
 ﻿using System.Drawing;
 using System.Numerics;
 
-namespace CUI.Common
+using CUI.Common.Rendering.Buffer;
+
+namespace CUI.Common.Rendering
 {
     public interface IRenderTarget
     {

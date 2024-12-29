@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CUI.Common
+namespace CUI.Common.Rendering.Buffer
 {
     public class RenderBufferInfo
     {

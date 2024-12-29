@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Numerics;
 
-namespace CUI.Common
+using CUI.Common.Rendering;
+
+namespace CUI.Common.Drawing
 {
     public class Transform
     {
@@ -41,9 +42,12 @@ namespace CUI.Common
             get => _padding;
             set => _padding = value;
         }
-        
-        public Vector2 Size => _innerSize + _padding.Size;
-        
+
+        public Vector2 Size
+        {
+            get => _innerSize + _padding.Size;
+            set => _innerSize = value - _padding.Size;
+        }
         public int ZIndex
         {
             get => _zIndex;
