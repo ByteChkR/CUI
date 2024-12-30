@@ -1,0 +1,12 @@
+﻿<VerticalLayout Layout="Fill">
+    <LayoutElement Weight="2" Layout="FillX">
+        <BorderedPanel Border="Double">
+            <ScrollingText Name="Output" Layout="Fill"/>
+        </BorderedPanel>
+    </LayoutElement>
+    <LayoutElement Size="1 3" FixedSize="true" Layout="FillX">
+        <BorderedPanel Size="1 1" Padding="2 1" Layout="Fill" Border="Default">
+            <TextInput Name="Input" Layout="Fill"/>
+        </BorderedPanel>
+    </LayoutElement>
+</VerticalLayout>

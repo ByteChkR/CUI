@@ -2,97 +2,96 @@
 
 using CUI.Common.Drawing;
 
-namespace CUI.Common.Rendering.Buffer
+namespace CUI.Common.Rendering.Buffer;
+
+public class RenderBufferPixel : IEquatable<RenderBufferPixel>
 {
-    public class RenderBufferPixel : IEquatable<RenderBufferPixel>
+    public static RenderBufferPixel Empty => new RenderBufferPixel();
+    private char _character = ' ';
+    private ConsoleColor _foregroundColor = ConsoleColor.White;
+    private ConsoleColor _backgroundColor = ConsoleColor.Black;
+
+    public char Character
     {
-        public static RenderBufferPixel Empty => new RenderBufferPixel();
-        private char _character = ' ';
-        private ConsoleColor _foregroundColor = ConsoleColor.White;
-        private ConsoleColor _backgroundColor = ConsoleColor.Black;
+        get => _character;
+        set => _character = value;
+    }
 
-        public char Character
-        {
-            get => _character;
-            set => _character = value;
-        }
+    public ConsoleColor ForegroundColor { 
+        get => _foregroundColor;
+        set => _foregroundColor = value;
+    }
 
-        public ConsoleColor ForegroundColor { 
-            get => _foregroundColor;
-            set => _foregroundColor = value;
-        }
-
-        public ConsoleColor BackgroundColor
+    public ConsoleColor BackgroundColor
+    {
+        get => _backgroundColor; 
+        set => _backgroundColor = value;
+    }
+    public void SetBackground(RenderColor color)
+    {
+        if (color == RenderColor.Inherit)
         {
-            get => _backgroundColor; 
-            set => _backgroundColor = value;
+            return;
         }
-        public void SetBackground(RenderColor color)
-        {
-            if (color == RenderColor.Inherit)
-            {
-                return;
-            }
-            BackgroundColor = (ConsoleColor)color;
-        }
+        BackgroundColor = (ConsoleColor)color;
+    }
         
-        public void SetForeground(RenderColor color)
+    public void SetForeground(RenderColor color)
+    {
+        if (color == RenderColor.Inherit)
         {
-            if (color == RenderColor.Inherit)
-            {
-                return;
-            }
-            ForegroundColor = (ConsoleColor)color;
+            return;
+        }
+        ForegroundColor = (ConsoleColor)color;
+    }
+
+    public bool Equals(RenderBufferPixel? other)
+    {
+        if (other is null)
+        {
+            return false;
         }
 
-        public bool Equals(RenderBufferPixel? other)
+        if (ReferenceEquals(this, other))
         {
-            if (other is null)
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return _character == other._character && _foregroundColor == other._foregroundColor && _backgroundColor == other._backgroundColor;
+            return true;
         }
 
-        public override bool Equals(object? obj)
+        return _character == other._character && _foregroundColor == other._foregroundColor && _backgroundColor == other._backgroundColor;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null)
         {
-            if (obj is null)
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((RenderBufferPixel)obj);
+            return false;
         }
 
-        public override int GetHashCode()
+        if (ReferenceEquals(this, obj))
         {
-            return HashCode.Combine(_character, (int)_foregroundColor, (int)_backgroundColor);
+            return true;
         }
 
-        public static bool operator ==(RenderBufferPixel? left, RenderBufferPixel? right)
+        if (obj.GetType() != GetType())
         {
-            return Equals(left, right);
+            return false;
         }
 
-        public static bool operator !=(RenderBufferPixel? left, RenderBufferPixel? right)
-        {
-            return !Equals(left, right);
-        }
+        return Equals((RenderBufferPixel)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(_character, (int)_foregroundColor, (int)_backgroundColor);
+    }
+
+    public static bool operator ==(RenderBufferPixel? left, RenderBufferPixel? right)
+    {
+        return Equals(left, right);
+    }
+
+    public static bool operator !=(RenderBufferPixel? left, RenderBufferPixel? right)
+    {
+        return !Equals(left, right);
     }
 }

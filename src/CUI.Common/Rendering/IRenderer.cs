@@ -1,10 +1,14 @@
-﻿using CUI.Common.Rendering.Buffer;
+﻿using System.Numerics;
 
-namespace CUI.Common.Rendering
+using CUI.Common.Rendering.Buffer;
+
+namespace CUI.Common.Rendering;
+
+public interface IRenderer
 {
-    public interface IRenderer
-    {
-        RenderBuffer Buffer { get; }
-        void Render();
-    }
+    RenderBuffer Buffer { get; }
+    void Render();
+    void BeginRender();
+    void EndRender();
+    void SetInputFocus(Renderable element);
 }

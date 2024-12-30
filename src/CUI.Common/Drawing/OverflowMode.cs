@@ -1,8 +1,7 @@
-﻿namespace CUI.Common.Drawing
+﻿namespace CUI.Common.Drawing;
+
+public enum OverflowMode
 {
-    public enum OverflowMode
-    {
-        Hidden,
-        Visible,
-    }
+    Hidden,
+    Visible,
 }

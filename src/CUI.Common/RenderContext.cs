@@ -1,24 +1,55 @@
-﻿using CUI.Common.Rendering;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace CUI.Common
+using CUI.Common.Input;
+using CUI.Common.Rendering;
+
+namespace CUI.Common;
+
+public class RenderContext : IDisposable
 {
-    public class RenderContext
+    public RenderContext(IRenderer renderer, bool interactive = false)
     {
-        public RenderContext(IRenderer renderer)
-        {
-            Renderer = renderer;
-        }
-        public IRenderer Renderer { get; }
-        public Renderable Elements { get; } = new Renderable();
+        Renderer = renderer;
+        InputHandler = interactive ? new InputHandler(this) : null;
+    }
+    public IRenderer Renderer { get; }
+    public InputHandler? InputHandler { get; }
+    public Renderable Root { get; set; } = new Renderable();
 
-        public void Render()
+    private bool _isRendering;
+    public IEnumerable<Renderable> FocusableElements => Root.GetAllChildrenAndSelf()
+                                                            .Where(x => x.Focusable)
+                                                            .OrderBy(x => x.TabIndex);
+
+    public void Render()
+    {
+        if (_isRendering)
         {
-            Elements
-                .WithSize(Renderer.Buffer.Size)
-                .ComputeLayout();
-            Renderer.Buffer.Clear();
-            Elements.RenderTo(Renderer.Buffer);
-            Renderer.Render();
+            return;
         }
+
+        _isRendering = true;
+        InputHandler?.Activate();
+        Renderer.BeginRender();
+        Root
+            .WithSize(Renderer.Buffer.Size)
+            .ComputeLayout();
+        Renderer.Buffer.Clear();
+        Root.RenderTo(Renderer.Buffer);
+        Renderer.Render();
+        Renderer.EndRender();
+        Renderable? focus = InputHandler?.FocusElement;
+        if(focus != null)
+        {
+            Renderer.SetInputFocus(focus);
+        }
+        _isRendering = false;
+    }
+
+    public void Dispose()
+    {
+        InputHandler?.Dispose();
     }
 }

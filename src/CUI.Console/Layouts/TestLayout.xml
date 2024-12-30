@@ -1,0 +1,18 @@
+﻿<VerticalLayout Layout="Fill">
+    <LayoutElement Weight="2" Layout="FillX">
+        <BorderedPanel Border="Default">
+            <BorderedPanel Name="Text1" Padding="3 1" Size="6 1" Color="Red" Background="Green" Overflow="Hidden" Border="Default">
+                <Text Size="12 1">Hello World!</Text>
+            </BorderedPanel>
+            <BorderedPanel Name="Text2" Position="5 10" Padding="3 1" Size="6 1" Color="Green" Background="Red" Layout="Fit" Border="Double">
+                <Text Layout="Fit">
+                    Hello World!
+                    This is a Test!
+                </Text>
+            </BorderedPanel>
+        </BorderedPanel>
+    </LayoutElement>
+    <BorderedPanel Size="1 1" Padding="3 2" Layout="FillX" Border="Double">
+        <ScrollingText Name="Log" Layout="Fill"/>
+    </BorderedPanel>
+</VerticalLayout>

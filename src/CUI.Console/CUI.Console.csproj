@@ -11,4 +11,16 @@
       <ProjectReference Include="..\CUI.Common\CUI.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Layouts\Chat.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Layouts\TestLayout.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Layouts\Console.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
