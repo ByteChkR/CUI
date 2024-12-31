@@ -4,7 +4,8 @@ using CUI.Common.Drawing;
 
 namespace CUI.Common.Rendering.Buffer;
 
-public class RenderBufferPixel : IEquatable<RenderBufferPixel>
+
+public class RenderBufferPixel : IRenderBufferPixel, IEquatable<RenderBufferPixel>
 {
     public static RenderBufferPixel Empty => new RenderBufferPixel();
     private char _character = ' ';
@@ -45,6 +46,12 @@ public class RenderBufferPixel : IEquatable<RenderBufferPixel>
         ForegroundColor = (ConsoleColor)color;
     }
 
+
+    public bool Equals(IRenderBufferPixel other)
+    {
+        return other is RenderBufferPixel px && Equals(px);
+    }
+
     public bool Equals(RenderBufferPixel? other)
     {
         if (other is null)
@@ -59,7 +66,6 @@ public class RenderBufferPixel : IEquatable<RenderBufferPixel>
 
         return _character == other._character && _foregroundColor == other._foregroundColor && _backgroundColor == other._backgroundColor;
     }
-
     public override bool Equals(object? obj)
     {
         if (obj is null)

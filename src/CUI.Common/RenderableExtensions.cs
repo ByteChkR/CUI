@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using System.Numerics;
 
-using CUI.Common.Components;
-using CUI.Common.Components.Containers;
 using CUI.Common.Drawing;
 
 namespace CUI.Common;
@@ -114,7 +112,24 @@ public static class RenderableExtensions
         renderable.BackgroundColor = color;
         return renderable;
     }
-        
+    
+    public static T WithFocusBackgroundColor<T>(this T renderable, RenderColor color) where T : Renderable
+    {
+        renderable.FocusBackgroundColor = color;
+        return renderable;
+    }
+    
+    public static T WithFocusForegroundColor<T>(this T renderable, RenderColor color) where T : Renderable
+    {
+        renderable.FocusForegroundColor = color;
+        return renderable;
+    }
+    
+    public static T Focusable<T>(this T renderable) where T : Renderable
+    {
+        renderable.Focusable = true;
+        return renderable;
+    }
     public static T WithActive<T>(this T renderable, bool active) where T : Renderable
     {
         renderable.Transform.Active = active;
@@ -177,14 +192,14 @@ public static class RenderableExtensions
         return renderable;
     }
     
-    public static LayoutElement AsLayoutElement(this Renderable renderable, bool ignoreLayout)
-    {
-        return new LayoutElement(renderable, 0, ignoreLayout);
-    }
-        
-    public static LayoutElement AsLayoutElement(this Renderable renderable, float weight)
-    {
-        return new LayoutElement(renderable, weight);
-    }
+    // public static LayoutElement AsLayoutElement(this Renderable renderable, bool ignoreLayout)
+    // {
+    //     return new LayoutElement(renderable, 0, ignoreLayout);
+    // }
+    //     
+    // public static LayoutElement AsLayoutElement(this Renderable renderable, float weight)
+    // {
+    //     return new LayoutElement(renderable, weight);
+    // }
 
 }

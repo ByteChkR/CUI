@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 
+using CUI.Common.Drawing;
+
 namespace CUI.Common.Rendering.Buffer;
 
-public class RenderBuffer : IRenderTarget
+public class RenderBuffer : IRenderBuffer
 {
     private RenderBufferPixel[,] _buffer;
     private readonly RenderBufferInfo _info;
@@ -84,19 +86,24 @@ public class RenderBuffer : IRenderTarget
         return position.X >= 0 && position.X < _size.X && position.Y >= 0 && position.Y < _size.Y;
     }
 
+    public IRenderTarget CreateTarget(Transform transform, OverflowMode mode)
+    {
+        return new RenderTarget(transform, this, false, mode);
+    }
+
     public void ClearPixel(Vector2 position)
     {
         if(_info.ClearFlags == RenderBufferClearFlags.None)
         {
             return;
         }
-        RenderBufferPixel px = GetPixel(position);
+        IRenderBufferPixel px = GetPixel(position);
         px.Character = _info.ClearCharacter;
         px.BackgroundColor = _info.GetClearBackgroundColor();
         px.ForegroundColor = _info.GetClearForegroundColor();
     }
 
-    public RenderBufferPixel GetPixel(Vector2 position)
+    public IRenderBufferPixel GetPixel(Vector2 position)
     {
         int x = (int)position.X;
         int y = (int)position.Y;
@@ -136,7 +143,7 @@ public class RenderBuffer : IRenderTarget
     {
     }
 
-    public IEnumerable<RenderCommand> Update(RenderBuffer buffer, bool force)
+    public IEnumerable<IRenderCommand> Update(IRenderBuffer buffer, bool force)
     {
         // Create a list of commands to update the current buffer based on the changes in the new buffer.
         if (buffer.Size != Size)
@@ -158,8 +165,8 @@ public class RenderBuffer : IRenderTarget
             int startX = 0;
             for (int x = 0; x < width; x++)
             {
-                RenderBufferPixel oldPixel = GetPixel(new Vector2(x, y));
-                RenderBufferPixel pixel = buffer.GetPixel(new Vector2(x, y));
+                IRenderBufferPixel oldPixel = GetPixel(new Vector2(x, y));
+                IRenderBufferPixel pixel = buffer.GetPixel(new Vector2(x, y));
 
                 // If the pixel is not dirty, skip it
                 if (!force && oldPixel == pixel)

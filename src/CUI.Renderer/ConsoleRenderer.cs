@@ -7,8 +7,8 @@ namespace CUI.Common.Rendering;
 
 public class ConsoleRenderer : IRenderer
 {
-    public RenderBuffer Buffer { get; }
-    private RenderBuffer _displayBuffer;
+    public IRenderBuffer Buffer { get; }
+    private IRenderBuffer _displayBuffer;
     private bool _forceRender = true;
     public ConsoleRenderer()
     {
@@ -34,8 +34,8 @@ public class ConsoleRenderer : IRenderer
         {
             for (int y = 0; y < Buffer.Size.Y; y++)
             {
-                RenderBufferPixel bufferPixel = Buffer.GetPixel(new Vector2(x, y));
-                RenderBufferPixel displayBufferPixel = _displayBuffer.GetPixel(new Vector2(x, y));
+                IRenderBufferPixel bufferPixel = Buffer.GetPixel(new Vector2(x, y));
+                IRenderBufferPixel displayBufferPixel = _displayBuffer.GetPixel(new Vector2(x, y));
                 if (bufferPixel != displayBufferPixel)
                 {
                     throw new Exception("Buffer and display buffer are not equal");

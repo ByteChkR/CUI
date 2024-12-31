@@ -7,10 +7,6 @@ namespace CUI.Common.Components.Containers;
 
 public class HorizontalLayout : Layout
 {
-    public HorizontalLayout(RenderColor foregroundColor = RenderColor.Inherit, RenderColor backgroundColor = RenderColor.Inherit) : base(foregroundColor, backgroundColor)
-    {
-    }
-
 
     protected override int SetItem(Renderable renderable, float weight, int currentPosition, float totalSize)
     {

@@ -2,7 +2,6 @@
 
 using CUI.Common.Drawing;
 using CUI.Common.Rendering;
-using CUI.Common.Rendering.Buffer;
 
 namespace CUI.Common.Components.Containers.Panels;
 
@@ -15,7 +14,7 @@ public class BorderedPanel : Panel
         set => _borderOptions = value;
     }
         
-    public BorderedPanel(BorderOptions borderOptions, RenderColor foregroundColor = RenderColor.Inherit, RenderColor backgroundColor = RenderColor.Inherit) : base(foregroundColor, backgroundColor)
+    public BorderedPanel(BorderOptions borderOptions)
     {
         _borderOptions = borderOptions;
         Transform.Padding = new Offset(1);
@@ -26,10 +25,10 @@ public class BorderedPanel : Panel
             
         IRenderTarget newTarget = target.IgnorePadding(true);
         Vector2 size = newTarget.Size;
-        RenderBufferPixel topLeft = newTarget.GetPixel(Vector2.Zero);
-        RenderBufferPixel topRight = newTarget.GetPixel(new Vector2(size.X - 1, 0));
-        RenderBufferPixel bottomLeft = newTarget.GetPixel(new Vector2(0, size.Y - 1));
-        RenderBufferPixel bottomRight = newTarget.GetPixel(size - Vector2.One);
+        IRenderBufferPixel topLeft = newTarget.GetPixel(Vector2.Zero);
+        IRenderBufferPixel topRight = newTarget.GetPixel(new Vector2(size.X - 1, 0));
+        IRenderBufferPixel bottomLeft = newTarget.GetPixel(new Vector2(0, size.Y - 1));
+        IRenderBufferPixel bottomRight = newTarget.GetPixel(size - Vector2.One);
         for (int x = 1; x < size.X - 1; x++)
         {
             newTarget.GetPixel(new Vector2(x, 0)).Character = _borderOptions.Horizontal;

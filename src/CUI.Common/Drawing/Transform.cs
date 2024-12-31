@@ -96,8 +96,4 @@ public class Transform
                thisPosition.Y + thisSize.Y > otherPosition.Y;
     }
 
-    internal IRenderTarget CreateTarget(IRenderTarget target, OverflowMode mode)
-    {
-        return new RenderTarget(this, target, false, mode);
-    }
 }

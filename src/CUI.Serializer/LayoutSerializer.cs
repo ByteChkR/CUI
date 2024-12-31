@@ -3,7 +3,6 @@ using System.IO;
 using System.Numerics;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 using CUI.Common.Components;
 using CUI.Common.Components.Containers;
@@ -70,6 +69,8 @@ public static class LayoutSerializer
         string? overflow = reader.Attributes?.GetNamedItem("Overflow")?.Value;
         string? backgroundColor = reader.Attributes?.GetNamedItem("Background")?.Value;
         string? foregroundColor = reader.Attributes?.GetNamedItem("Color")?.Value;
+        string? focusBackgroundColor = reader.Attributes?.GetNamedItem("FocusBackground")?.Value;
+        string? focusForegroundColor = reader.Attributes?.GetNamedItem("FocusColor")?.Value;
         string? focusable = reader.Attributes?.GetNamedItem("Focusable")?.Value;
         string? captureControl = reader.Attributes?.GetNamedItem("CaptureControl")?.Value;
         string? tabIndex = reader.Attributes?.GetNamedItem("TabIndex")?.Value;
@@ -122,6 +123,16 @@ public static class LayoutSerializer
         if (foregroundColor != null)
         {
             target.ForegroundColor = Enum.Parse<RenderColor>(foregroundColor, true);
+        }
+        
+        if (focusBackgroundColor != null)
+        {
+            target.FocusBackgroundColor = Enum.Parse<RenderColor>(focusBackgroundColor, true);
+        }
+        
+        if (focusForegroundColor != null)
+        {
+            target.FocusForegroundColor = Enum.Parse<RenderColor>(focusForegroundColor, true);
         }
         
         if (focusable != null)

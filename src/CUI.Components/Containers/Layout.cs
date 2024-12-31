@@ -7,10 +7,6 @@ namespace CUI.Common.Components.Containers;
 
 public abstract class Layout : Renderable
 {
-        
-    protected Layout(RenderColor foregroundColor = RenderColor.Inherit, RenderColor backgroundColor = RenderColor.Inherit) : base(foregroundColor, backgroundColor)
-    {
-    }
 
     protected abstract int SetItem(Renderable renderable, float weight, int currentPosition, float totalSize);
     protected abstract int GetTotalFixedSize(Renderable[] children);

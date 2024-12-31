@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace CUI.Common.Rendering.Buffer;
 
-public class RenderCommand
+public class RenderCommand : IRenderCommand
 {
     public RenderCommand(ConsoleColor foregroundColor, ConsoleColor backgroundColor, char[] characters, int x, int y, RenderBuffer buffer)
     {
@@ -27,7 +27,7 @@ public class RenderCommand
         for (int i = 0; i < width; i++)
         {
             Vector2 position = new Vector2(X + i, Y);
-            RenderBufferPixel pixel = _buffer.GetPixel(position);
+            IRenderBufferPixel pixel = _buffer.GetPixel(position);
             pixel.Character = Characters[i];
             pixel.ForegroundColor = ForegroundColor;
             pixel.BackgroundColor = BackgroundColor;

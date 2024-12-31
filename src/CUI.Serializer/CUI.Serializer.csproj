@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CUI.Common\CUI.Common.csproj" />
+      <ProjectReference Include="..\CUI.Components\CUI.Components.csproj" />
+    </ItemGroup>
+
+</Project>

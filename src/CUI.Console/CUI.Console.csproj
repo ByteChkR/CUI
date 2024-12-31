@@ -5,10 +5,14 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CUI.Common\CUI.Common.csproj" />
+      <ProjectReference Include="..\CUI.Components\CUI.Components.csproj" />
+      <ProjectReference Include="..\CUI.Renderer\CUI.Renderer.csproj" />
+      <ProjectReference Include="..\CUI.Serializer\CUI.Serializer.csproj" />
     </ItemGroup>
 
     <ItemGroup>

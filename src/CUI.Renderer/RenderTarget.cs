@@ -19,13 +19,32 @@ public class RenderTarget : IRenderTarget
     public Transform Transform { get; }
     public IRenderTarget Parent { get; }
     public OverflowMode OverflowMode { get; }
-    public Vector2 Size => IncludePadding ? Transform.Size : Transform.InnerSize;
 
+    public Vector2 Size
+    {
+        get => IncludePadding ? Transform.Size : Transform.InnerSize;
+        set
+        {
+            if(IncludePadding)
+            {
+                Transform.Size = value;
+            }
+            else
+            {
+                Transform.InnerSize = value;
+            }
+        }
+    }
+
+    public IRenderTarget CreateTarget(Transform transform, OverflowMode mode)
+    {
+        return new RenderTarget(transform, this, false, mode);
+    }
     private Vector2 CalculatePosition(Vector2 position)
     {
         return position + (Transform.Position - Transform.Pivot) + (IncludePadding ? Vector2.Zero : Transform.Padding.TopLeft);
     }
-    public RenderBufferPixel GetPixel(Vector2 position)
+    public IRenderBufferPixel GetPixel(Vector2 position)
     {
 
         if (OverflowMode == OverflowMode.Hidden && !Contains(position))
