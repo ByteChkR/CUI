@@ -58,22 +58,22 @@ public static class LayoutSerializer
     }
     private static void ReadAttributes(Renderable target, XmlNode reader)
     {
-        string? name = reader.Attributes?.GetNamedItem("Name")?.Value;
-        string? layout = reader.Attributes?.GetNamedItem("Layout")?.Value;
-        string? active = reader.Attributes?.GetNamedItem("Active")?.Value;
-        string? pivot = reader.Attributes?.GetNamedItem("Pivot")?.Value;
-        string? position = reader.Attributes?.GetNamedItem("Position")?.Value;
-        string? innerSize = reader.Attributes?.GetNamedItem("Size")?.Value;
-        string? padding = reader.Attributes?.GetNamedItem("Padding")?.Value;
-        string? zIndex = reader.Attributes?.GetNamedItem("ZIndex")?.Value;
-        string? overflow = reader.Attributes?.GetNamedItem("Overflow")?.Value;
-        string? backgroundColor = reader.Attributes?.GetNamedItem("Background")?.Value;
-        string? foregroundColor = reader.Attributes?.GetNamedItem("Color")?.Value;
-        string? focusBackgroundColor = reader.Attributes?.GetNamedItem("FocusBackground")?.Value;
-        string? focusForegroundColor = reader.Attributes?.GetNamedItem("FocusColor")?.Value;
-        string? focusable = reader.Attributes?.GetNamedItem("Focusable")?.Value;
-        string? captureControl = reader.Attributes?.GetNamedItem("CaptureControl")?.Value;
-        string? tabIndex = reader.Attributes?.GetNamedItem("TabIndex")?.Value;
+        string? name = reader.Attributes?.GetNamedItem("name")?.Value;
+        string? layout = reader.Attributes?.GetNamedItem("layout")?.Value;
+        string? active = reader.Attributes?.GetNamedItem("active")?.Value;
+        string? pivot = reader.Attributes?.GetNamedItem("pivot")?.Value;
+        string? position = reader.Attributes?.GetNamedItem("position")?.Value;
+        string? innerSize = reader.Attributes?.GetNamedItem("size")?.Value;
+        string? padding = reader.Attributes?.GetNamedItem("padding")?.Value;
+        string? zIndex = reader.Attributes?.GetNamedItem("zindex")?.Value;
+        string? overflow = reader.Attributes?.GetNamedItem("overflow")?.Value;
+        string? backgroundColor = reader.Attributes?.GetNamedItem("background")?.Value;
+        string? foregroundColor = reader.Attributes?.GetNamedItem("color")?.Value;
+        string? focusBackgroundColor = reader.Attributes?.GetNamedItem("focusbackground")?.Value;
+        string? focusForegroundColor = reader.Attributes?.GetNamedItem("focuscolor")?.Value;
+        string? focusable = reader.Attributes?.GetNamedItem("focusable")?.Value;
+        string? captureControl = reader.Attributes?.GetNamedItem("capturecontrol")?.Value;
+        string? tabIndex = reader.Attributes?.GetNamedItem("tabindex")?.Value;
         target.Name = name ?? "";
         if (layout != null)
         {
@@ -241,7 +241,7 @@ public static class LayoutSerializer
         
     public static Renderable ReadBorderedPanel(XmlNode reader)
     {
-        string? border = reader.Attributes?.GetNamedItem("Border")?.Value;
+        string? border = reader.Attributes?.GetNamedItem("border")?.Value;
         BorderedPanel panel = new BorderedPanel(BorderOptions.Borders[border ?? "Default"]);
         ReadAttributes(panel, reader);
         return panel;
@@ -251,35 +251,35 @@ public static class LayoutSerializer
     {
         string nodeType = reader.Name;
         Renderable node;
-        if(nodeType == "Text")
+        if(nodeType.ToLower() == "text")
         {
             node = ReadText(reader);
         }
-        else if (nodeType == "ScrollingText")
+        else if (nodeType.ToLower() == "scrollingtext")
         {
             node = ReadScrollingText(reader);
         }
-        else if (nodeType == "HorizontalLayout")
+        else if (nodeType.ToLower() == "horizontallayout")
         {
             node = ReadHorizontalLayout(reader);
         }
-        else if (nodeType == "VerticalLayout")
+        else if (nodeType.ToLower() == "verticallayout")
         {
             node = ReadVerticalLayout(reader);
         }
-        else if (nodeType == "Panel")
+        else if (nodeType.ToLower() == "panel")
         {
             node = ReadPanel(reader);
         }
-        else if (nodeType == "BorderedPanel")
+        else if (nodeType.ToLower() == "borderedpanel")
         {
             node = ReadBorderedPanel(reader);
         }
-        else if (nodeType == "LayoutElement")
+        else if (nodeType.ToLower() == "layoutelement")
         {
             node = ReadLayoutElement(reader);
         }
-        else if(nodeType == "TextInput")
+        else if(nodeType.ToLower() == "textinput")
         {
             node = ReadTextInput(reader);
         }
@@ -288,9 +288,9 @@ public static class LayoutSerializer
             throw new Exception("Unknown node type: " + nodeType);
         }
             
-        string? weight = reader.Attributes?.GetNamedItem("Weight")?.Value;
-        string? ignoreLayout = reader.Attributes?.GetNamedItem("IgnoreLayout")?.Value;
-        string? fixedSize = reader.Attributes?.GetNamedItem("FixedSize")?.Value;
+        string? weight = reader.Attributes?.GetNamedItem("weight")?.Value;
+        string? ignoreLayout = reader.Attributes?.GetNamedItem("ignorelayout")?.Value;
+        string? fixedSize = reader.Attributes?.GetNamedItem("fixedsize")?.Value;
         if (weight != null || ignoreLayout != null || fixedSize != null)
         {
             if(node is not LayoutElement elem)
