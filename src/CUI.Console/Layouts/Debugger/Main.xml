@@ -1,0 +1,83 @@
+﻿<HorizontalLayout Layout="Fill">
+    <LayoutElement Weight="1" Layout="FillX">
+        <Panel Padding="1 1" Size="1 1" Layout="FillX">
+            <BorderedPanel Size="1 1" Padding="3 2" Layout="Fill" Border="Double">
+                <Text IgnoreLayout="true" Name="File" Layout="Fill" Position="-1 -2" >
+                    List
+                </Text>
+                <VerticalLayout Layout="Fill">
+                    <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                        <Text Layout="Fill">- Step</Text>
+                    </LayoutElement>
+                    <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                        <Text Layout="Fill">- View Variables</Text>
+                    </LayoutElement>
+                    <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                        <Text Layout="Fill">- Files</Text>
+                    </LayoutElement>
+                    <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                        <VerticalLayout Layout="Fill">
+                            <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                                <Text Color="DarkGray" Background="White" Layout="Fill">-   Main.bs</Text>
+                            </LayoutElement>
+                            <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                                <Text Layout="Fill">-   PackageHandler.bs</Text>
+                            </LayoutElement>
+                            <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                                <Text Color="DarkGray" Layout="Fill">-   [Debugger]</Text>
+                            </LayoutElement>
+                        </VerticalLayout>
+                    </LayoutElement>
+                </VerticalLayout>
+            </BorderedPanel>
+        </Panel>
+    </LayoutElement>
+    <LayoutElement Weight="3" Layout="FillX">
+        <Panel Padding="1 1" Size="1 1" Layout="FillX">
+            <VerticalLayout Layout="Fill">
+                <BorderedPanel Size="1 1" Padding="3 2" Layout="FillX" Border="Double">
+                    <Text IgnoreLayout="true" Name="File" Layout="Fill" Position="-1 -2" >
+                        File: Main.bs
+                    </Text>
+                    <VerticalLayout Layout="Fill">
+                        <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                            <Text Layout="Fill" Background="red">
+                                1 * const Array args = Runtime.GetArguments();
+                            </Text>
+                        </LayoutElement>
+                        <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                            <Text Layout="Fill">
+                                2   const Array targets = args.Length == 0 ? ["default"] : args;
+                            </Text>
+                        </LayoutElement>
+                        <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                            <Text Layout="Fill" Color="Black" Background="White">
+                                3 >>Console.WriteLine("Targets: " + targets);
+                            </Text>
+                        </LayoutElement>
+                        <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                            <Text Layout="Fill">
+                                4
+                            </Text>
+                        </LayoutElement>
+                        <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                            <Text Layout="Fill">
+                                5
+                            </Text>
+                        </LayoutElement>
+                        <LayoutElement Size="1 1" FixedSize="true" Layout="FillX">
+                            <Text Layout="Fill">
+                                6
+                            </Text>
+                        </LayoutElement>
+                    </VerticalLayout>
+                </BorderedPanel>
+                <LayoutElement FixedSize="true" Size="6 9" Layout="FillX">
+                    <BorderedPanel Padding="3 2" Layout="Fill" Border="Double">
+
+                    </BorderedPanel>
+                </LayoutElement>
+            </VerticalLayout>
+        </Panel>
+    </LayoutElement>
+</HorizontalLayout>

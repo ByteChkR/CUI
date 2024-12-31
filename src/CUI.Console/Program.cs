@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.CodeDom.Compiler;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
@@ -107,40 +108,134 @@ internal class Program
             Thread.Sleep(250);
         }
     }
+
+    private static void RunFile(RenderContext context, string file)
+    {
+        System.Console.Clear();
+        context.Root = LayoutSerializer.FromFile(file);
+        context.Render();
+    }
     
     private static void Main(string[] args)
     {
+        
+        if (args[0] == "live")
+        {
+            RenderContext context = new RenderContext(new ConsoleRenderer());
+            var dir = Path.GetDirectoryName(Path.GetFullPath(args[1]));
+            var file = Path.GetFileName(args[1]);
+            FileSystemWatcher fileSystemWatcher = new FileSystemWatcher(dir, file);
+            fileSystemWatcher.EnableRaisingEvents = true;
+            Exception? error = null;
 
-        if (args[0]
-            .EndsWith("TestLayout.xml"))
-        {
-            using RenderContext context = new RenderContext(new ConsoleRenderer());
-            context.Root = LayoutSerializer.FromFile(args[0]);
-            context.Render();
-            TestLayout(context);
+
+            bool silent = false;
+            Exception? TryRunFile()
+            {
+                try 
+                {
+                    RunFile(context, args[1]);
+
+                    if (!silent)
+                    {
+                        System.Console.SetCursorPosition(0,0);
+                        System.Console.WriteLine($"{DateTimeOffset.Now:HH:mm:ss} - Updated: {args[1]}");
+                    }
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    if (!silent)
+                    {
+                        System.Console.SetCursorPosition(0,0);
+                        System.Console.WriteLine($"{DateTimeOffset.Now:HH:mm:ss} - Error: {e.Message}");
+                    }
+                    return e;
+                }
+            }
+            fileSystemWatcher.Changed += (sender, eventArgs) =>
+            {
+                error = TryRunFile();
+            };
+            
+            while (true)
+            {
+                if (error != null)
+                {
+                    System.Console.Clear();
+                    IndentedTextWriter tw = new IndentedTextWriter(new StringWriter());
+                    void WriteException()
+                    {
+                        tw.WriteLine($"Exception: {error.GetType()}");
+                        tw.WriteLine($"Message: {error.Message}");
+                        tw.WriteLine($"Stack Trace: {error.StackTrace}");
+                        if (error.InnerException != null)
+                        {
+                            tw.Indent++;
+                            WriteException();
+                            tw.Indent--;
+                        }
+                    }
+                    
+                    WriteException();
+                    System.Console.WriteLine(tw.InnerWriter.ToString());
+                    System.Console.WriteLine("Press any key to retry");
+                    System.Console.ReadKey();
+                    error = TryRunFile();
+
+                    if (error != null)
+                    {
+                        continue;
+                    }
+                }
+                ConsoleKeyInfo key = System.Console.ReadKey();
+                if(key is {Key: ConsoleKey.Escape})
+                {
+                    break;
+                }
+                if(key is {Key: ConsoleKey.R, Modifiers: ConsoleModifiers.Control | ConsoleModifiers.Shift})
+                {
+                    silent = !silent;
+                    error = TryRunFile();
+                }
+                if(key is {Key: ConsoleKey.R, Modifiers: ConsoleModifiers.Control})
+                {
+                    error = TryRunFile();
+                }
+            }
+            
+            fileSystemWatcher.Dispose();
+            context.Dispose();
         }
-        else if(args[0]
-            .EndsWith("Chat.xml"))
-        {
-            using RenderContext context = new RenderContext(new ConsoleRenderer(), true);
-            context.Root = LayoutSerializer.FromFile(args[0]);
-            context.Render();
-            Chat(context);
-        }
-        else if (args[0]
-                 .EndsWith("Console.xml"))
+        else
         {
             RenderContext context = new RenderContext(new ConsoleRenderer(), true);
-            context.Root = LayoutSerializer.FromFile(args[0]);
-            TextInput? input = context.Root.Find<TextInput>("Input");
-            Text? output = context.Root.Find<Text>("Output");
-            if (input is null || output is null)
+            if (args[0]
+                .EndsWith("TestLayout.xml"))
             {
-                throw new Exception("Could not find all required elements");
+                RunFile(context, args[0]);
+                TestLayout(context);
             }
+            else if(args[0]
+                    .EndsWith("Chat.xml"))
+            {
+                RunFile(context, args[0]);
+                Chat(context);
+            }
+            else if (args[0]
+                     .EndsWith("Console.xml"))
+            {
+                RunFile(context, args[0]);
+                TextInput? input = context.Root.Find<TextInput>("Input");
+                Text? output = context.Root.Find<Text>("Output");
+                if (input is null || output is null)
+                {
+                    throw new Exception("Could not find all required elements");
+                }
 
-            using CommandWindow window = new CommandWindow(context, output, input);
-            window.Run();
+                using CommandWindow window = new CommandWindow(context, output, input);
+                window.Run();
+            }
         }
         Environment.Exit(0);
     }

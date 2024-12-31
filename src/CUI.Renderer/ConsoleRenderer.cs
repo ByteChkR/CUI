@@ -36,7 +36,7 @@ public class ConsoleRenderer : IRenderer
             {
                 IRenderBufferPixel bufferPixel = Buffer.GetPixel(new Vector2(x, y));
                 IRenderBufferPixel displayBufferPixel = _displayBuffer.GetPixel(new Vector2(x, y));
-                if (bufferPixel != displayBufferPixel)
+                if (!bufferPixel.Equals(displayBufferPixel))
                 {
                     throw new Exception("Buffer and display buffer are not equal");
                 }

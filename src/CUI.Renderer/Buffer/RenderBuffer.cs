@@ -9,7 +9,7 @@ namespace CUI.Common.Rendering.Buffer;
 
 public class RenderBuffer : IRenderBuffer
 {
-    private RenderBufferPixel[,] _buffer;
+    private BufferPixel[,] _buffer;
     private readonly RenderBufferInfo _info;
 
     private Vector2 _size;
@@ -39,7 +39,7 @@ public class RenderBuffer : IRenderBuffer
         {
             for (int y = 0; y < height; y++)
             {
-                _buffer[x, y] = new RenderBufferPixel()
+                _buffer[x, y] = new BufferPixel()
                 {
                     Character = _info.ClearCharacter,
                     BackgroundColor = _info.GetClearBackgroundColor(),
@@ -66,7 +66,7 @@ public class RenderBuffer : IRenderBuffer
                 {
                     continue;
                 }
-                _buffer[x, y] = new RenderBufferPixel()
+                _buffer[x, y] = new BufferPixel()
                 {
                     Character = _info.ClearCharacter,
                     BackgroundColor = _info.GetClearBackgroundColor(),
@@ -109,7 +109,7 @@ public class RenderBuffer : IRenderBuffer
         int y = (int)position.Y;
         if (x < 0 || x >= _size.X || y < 0 || y >= _size.Y)
         {
-            return RenderBufferPixel.Empty;
+            return BufferPixel.Empty;
         }
         return _buffer[x, y];
     }
@@ -118,12 +118,12 @@ public class RenderBuffer : IRenderBuffer
     {
         int width = (int)_size.X;
         int height = (int)_size.Y;
-        _buffer = new RenderBufferPixel[width, height];
+        _buffer = new BufferPixel[width, height];
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                _buffer[x, y] = new RenderBufferPixel()
+                _buffer[x, y] = new BufferPixel()
                 {
                     Character = _info.ClearCharacter,
                     ForegroundColor = _info.GetClearForegroundColor(),

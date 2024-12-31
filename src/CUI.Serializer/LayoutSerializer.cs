@@ -295,7 +295,7 @@ public static class LayoutSerializer
         {
             if(node is not LayoutElement elem)
             {
-                elem = new LayoutElement(node);
+                node = elem = new LayoutElement(node);
             }
 
             if(weight != null)

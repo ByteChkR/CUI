@@ -49,7 +49,7 @@ public class RenderTarget : IRenderTarget
 
         if (OverflowMode == OverflowMode.Hidden && !Contains(position))
         {
-            return RenderBufferPixel.Empty;
+            return BufferPixel.Empty;
         }
         Vector2 pos = CalculatePosition(position);
         return Parent.GetPixel(pos);
